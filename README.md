@@ -1,13 +1,15 @@
 
 ## Nullable providers in Gradle
 
-Experiments that explore options for defining a Gradle `Provider` which can carry a null value. Verifies how IDEA and
-the Kotlin compilers behave when plugins that define Java or Kotlin API are used by the Kotlin DSL and by
-other plugins implemented in Java and Kotlin.
+This repo contains experiments that explore options for changing the Gradle API so that plugins can define a `Provider` 
+which may carry a null value.
+Verifies how IDEA and the Kotlin compiler behave when plugins define nullable providers in Java or Kotlin API and 
+are used from the Kotlin DSL and by other plugins implemented in Java and Kotlin.
 
 ### What to look at?
 
-Currently, there is a single pattern implemented, where APIs can declare a `Provider<@Nullable T>` plus a factory method for creating such providers. 
+Currently, there is a single pattern implemented, where APIs can declare a `Provider<@Nullable T>` plus a factory method
+for creating such providers. 
 This pattern works to some degree, however there are a number of cases that should fail or give warnings but do not.
 
 A basic provider-like API is defined in the `api` included build. This is implemented in Java, as if it were part of the Gradle
@@ -21,7 +23,8 @@ were to go ahead with one of these options).
 The `kotlin-dsl` project uses the API and the plugin models from the Kotlin DSL, to see how it behaves. Take a look at the
 `build.gradle.kts` in that directory. The comments describe the behaviour for each usage and whether it is broken or not.
 
-The `java-consumer` project defines a plugin implemented in Java, which uses these things. Take a look at the `JavaExtensionPlugin` class.
+The `java-consumer` project defines a plugin implemented in Java, which uses these things. Take a look at the 
+`JavaExtensionPlugin` class.
 
 The `kotlin-consumer` project defines a plugin implemented in Kotlin, which uses these things. Take a look at the
 `KotlinExtensionPlugin` class.
