@@ -2,6 +2,8 @@ plugins {
     id("java-gradle-plugin")
 }
 
+group = "org.gradle.sample"
+
 gradlePlugin {
     plugins {
         create("java-api") {
@@ -16,5 +18,5 @@ repositories {
 }
 
 dependencies {
-    implementation("org.gradle.sample:api:1.0")
+    api("org.gradle.sample:api:1.0")
 }
