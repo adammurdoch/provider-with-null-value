@@ -28,7 +28,7 @@ public class JavaExtensionPlugin implements Plugin<Project> {
         int a2 = a.map(s -> 123).get();
 
         // BROKEN: no warnings or errors
-        int a3 = a.map(s -> someInteger()).get();
+        int a3 = a.map(s -> nullableInteger()).get();
 
         //
         // API defined in Java
@@ -37,10 +37,10 @@ public class JavaExtensionPlugin implements Plugin<Project> {
         JavaApiModel javaApi = project.getExtensions().getByType(JavaApiModel.class);
 
         // OK: no warnings or errors
-        int java1 = javaApi.getProp().get().length();
+        int javaA1 = javaApi.getProp().get().length();
 
         // OK: Warns about potential NPE
-        int java2 = javaApi.getNullableProp().get().length();
+        int javaB1 = javaApi.getNullableProp().get().length();
 
         //
         // API defined in Kotlin
@@ -49,13 +49,19 @@ public class JavaExtensionPlugin implements Plugin<Project> {
         KotlinApiModel kotlinApi = project.getExtensions().getByType(KotlinApiModel.class);
 
         // OK: no warnings or errors
-        int kotlin1 = kotlinApi.getProp().get().length();
+        int kotlinA1 = kotlinApi.getProp().get().length();
 
         // BROKEN: Does not warn about potential NPE
-        int kotlin2 = kotlinApi.getNullableProp().get().length();
+        int kotlinB1 = kotlinApi.getNullableProp().get().length();
+
+        // OK: no warnings or errors
+        int kotlinA2 = kotlinApi.getProp().map(s -> 123).get();
+
+        // BROKEN: no warnings or errors
+        int kotlinA3 = kotlinApi.getProp().map(s -> nullableInteger()).get();
     }
 
-    @Nullable Integer someInteger() {
+    @Nullable Integer nullableInteger() {
         return 123;
     }
 }
