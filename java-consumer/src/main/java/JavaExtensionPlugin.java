@@ -13,10 +13,11 @@ public class JavaExtensionPlugin implements Plugin<Project> {
 
         JavaApiModel javaApi = project.getExtensions().getByType(JavaApiModel.class);
 
-        int len1 = javaApi.getProp().get().length();
+        // OK: no warnings or errors
+        int java1 = javaApi.getProp().get().length();
 
-        // Warns about potential NPE
-        int len2 = javaApi.getNullableProp().get().length();
+        // OK: Warns about potential NPE
+        int java2 = javaApi.getNullableProp().get().length();
 
         //
         // API defined in Kotlin
@@ -24,9 +25,10 @@ public class JavaExtensionPlugin implements Plugin<Project> {
 
         KotlinApiModel kotlinApi = project.getExtensions().getByType(KotlinApiModel.class);
 
-        int len3 = kotlinApi.getProp().get().length();
+        // OK: no warnings or errors
+        int kotlin1 = kotlinApi.getProp().get().length();
 
-        // Does not warn about potential NPE
-        int len4 = kotlinApi.getNullableProp().get().length();
+        // BROKEN: Does not warn about potential NPE
+        int kotlin2 = kotlinApi.getNullableProp().get().length();
     }
 }

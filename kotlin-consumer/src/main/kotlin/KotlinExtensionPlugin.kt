@@ -7,16 +7,18 @@ class KotlinExtensionPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val javaApi = project.extensions.getByType(JavaApiModel::class.java)
 
+        // OK: no warnings or errors
         javaApi.prop.get().length
 
-        // Red highlight but no compilation error
+        // BROKEN: without the null check - red highlight but compilation does not fail
         javaApi.nullableProp.get()?.length
 
         val kotlinApi = project.extensions.getByType(KotlinApiModel::class.java)
 
+        // OK: no warnings or errors
         kotlinApi.prop.get().length
 
-        // Red highlight and compilation error
+        // OK: without the null check - red highlight and compilation fails
         kotlinApi.nullableProp.get()?.length
     }
 }
