@@ -1,9 +1,14 @@
 
-Experiments that explore options for defining Gradle `Provider` which can carry a null value. Verifies how IDEA and
+## Nullable providers in Gradle
+
+Experiments that explore options for defining a Gradle `Provider` which can carry a null value. Verifies how IDEA and
 the Kotlin compilers behave when plugins that define Java or Kotlin API are used by the Kotlin DSL and by
 other plugins implemented in Java and Kotlin.
 
 ### What to look at?
+
+Currently, there is a single pattern implemented, where APIs can declare a `Provider<@Nullable T>` plus a factory method for creating such providers. 
+This pattern works to some degree, however there are a number of cases that should fail or give warnings but do not.
 
 A basic provider-like API is defined in the `api` included build. This is implemented in Java, as if it were part of the Gradle
 distribution. 
