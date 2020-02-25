@@ -2,9 +2,6 @@ package org.gradle.sample.api;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 public class Providers {
     public <T> ValueProvider<T> provider(Class<T> type, T value) {
         return new ValueProvider<>() {
@@ -29,15 +26,7 @@ public class Providers {
     }
 
     private <S> Class<S> inferType(ValueProvider.MappingFunction<?, S> function) {
-        // Blows up with a NPE when used via Kotlin DSL
-//        for (Type superInterface : function.getClass().getGenericInterfaces()) {
-//            if (superInterface instanceof ParameterizedType) {
-//                ParameterizedType type = (ParameterizedType) superInterface;
-//                if (type.getRawType().equals(ValueProvider.MappingFunction.class) && type.getActualTypeArguments()[1] instanceof Class) {
-//                    return (Class<S>) type.getActualTypeArguments()[1];
-//                }
-//            }
-//        }
+        // Reflection blows up with a NPE when used via Kotlin DSL
         return (Class<S>) Object.class;
     }
 

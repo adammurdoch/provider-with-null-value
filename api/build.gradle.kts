@@ -1,5 +1,5 @@
 plugins {
-    id("java")
+    id("java-library")
 }
 
 group = "org.gradle.sample"
@@ -9,5 +9,5 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains:annotations:16.0.2")
+    api("org.jetbrains:annotations:19.0.0")
 }

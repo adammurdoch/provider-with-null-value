@@ -1,11 +1,11 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath("org.gradle.sample:api:1.0")
-    }
+plugins {
+    id("org.gradle.sample.java-api")
+    id("org.gradle.sample.kotlin-api")
 }
+
+//
+// Define and use from Kotlin DSL
+//
 
 val providers = org.gradle.sample.api.Providers()
 
@@ -33,3 +33,21 @@ c.orNull?.plus(11)
 
 // red highlight but compilation does not fail without null check
 d.get()?.plus(11)
+
+//
+// plugin API defined in Java
+//
+
+javaApi.prop.get().length
+
+// no highlighting or compilation failure
+javaApi.nullableProp.get()?.length
+
+//
+// plugin API defined in Kotlin
+//
+
+kotlinApi.prop.get().length
+
+// red highlight and compilation fails without null check
+kotlinApi.nullableProp.get()?.length
